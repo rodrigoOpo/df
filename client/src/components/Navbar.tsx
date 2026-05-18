@@ -24,14 +24,6 @@ const Navbar = (props: Props) => {
 
 
         <div>
-          <ul>
-              {navIcons.map(({id, img})=> (
-                <li key={id}>
-                  <img src={img} alt={`icon-${id}`} className='icon-hover' />
-                </li>
-              ))}
-          </ul>
-
           <time>{dayjs().format("ddd MMM D YYYY H:mm")}</time>
         </div>
     </nav>
