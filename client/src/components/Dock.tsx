@@ -5,10 +5,18 @@ import { dockApps } from "@/constants";
 import { Tooltip } from "react-tooltip";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import useWindowStore from "@/store/Window";
+import { WINDOW_CONFIG } from '@/constants';
+
+
+type WindowKey = keyof typeof WINDOW_CONFIG;
+
 
 type Props = {}
 
 const Dock = (props: Props) => {
+
+    const { openWindow, closeWindow, windows } = useWindowStore()
 
  const dockRef = useRef<HTMLDivElement>(null);
 
@@ -66,14 +74,26 @@ const Dock = (props: Props) => {
 
 
  type DockApp = {
-  id: string;
+  id: WindowKey;
   name: string;
   icon: string;
   canOpen: boolean;
  };
 
 
- const toggleApp = (app: Pick<DockApp, "id" | "canOpen">) => {}
+ const toggleApp = (app: Pick<DockApp, "id" | "canOpen">) => {
+    if (!app.canOpen) return;
+
+    const window = windows[app.id];
+
+    if(window.isOpen) {
+        closeWindow(app.id);
+    } else {
+        openWindow(app.id);
+    }
+
+    console.log(window);
+ }
 
   return (
     <section id='dock'>
@@ -88,10 +108,10 @@ const Dock = (props: Props) => {
                     data-tooltip-content={name}
                     data-tooltip-delay-show={150}
                     disabled={!canOpen}
-                    onClick={()=> toggleApp({id, canOpen})}
+                    onClick={()=> toggleApp({id: id as WindowKey, canOpen})}
                     >
                         <img 
-                        src={`/images/${icon}`} 
+                        src={`/images/${icon}`}
                         alt={name}
                         loading="lazy"
                         className={canOpen ? "" : "opacity-60"}/>
