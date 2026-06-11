@@ -16,7 +16,7 @@ type Props = {}
 
 const Dock = (props: Props) => {
 
-    const { openWindow, closeWindow, windows } = useWindowStore()
+ const { openWindow, closeWindow, windows } = useWindowStore()
 
  const dockRef = useRef<HTMLDivElement>(null);
 

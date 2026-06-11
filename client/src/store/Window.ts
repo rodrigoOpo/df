@@ -38,6 +38,8 @@ const useWindowStore = create<WindowStore>()(
         openWindow: (windowKey:WindowKey, data = null) =>
             set((state:any)=> {
                 const win = state.windows[windowKey as WindowKey];
+                //Defensive: if the windowKey is invalid, do nothing.
+                if(!win) return;
                 win.isOpen = true;
                 win.zIndex = state.nextZIndex;
                 win.data = data ?? win.data;
@@ -47,6 +49,8 @@ const useWindowStore = create<WindowStore>()(
         closeWindow: (windowKey:WindowKey) =>
             set((state:any)=> {
                 const win = state.windows[windowKey];
+                //Defensive: if the windowKey is invalid, do nothing.
+                if(!win) return;
                 win.isOpen = false;
                 win.zIndex = INITIAL_Z_INDEX;
                 win.data = null;
@@ -60,6 +64,6 @@ const useWindowStore = create<WindowStore>()(
 
         
 }))
-);
+); 
 
 export default useWindowStore;

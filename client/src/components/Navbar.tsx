@@ -1,12 +1,27 @@
+"use client"
+
 import { navLinks, navIcons } from '@/constants'
 import dayjs from 'dayjs'
 import 'dayjs/locale/es';
+import { useState, useEffect } from 'react';
+
 
 dayjs.locale('es');
 
 type Props = {}
 
 const Navbar = (props: Props) => {
+
+  const [time, setTime] = useState(dayjs());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(dayjs());
+    }, 60_000); // cada minuto
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <nav>
         <div>
@@ -24,7 +39,7 @@ const Navbar = (props: Props) => {
 
 
         <div>
-          <time>{dayjs().format("ddd MMM D YYYY H:mm")}</time>
+          <time>{time.format("ddd MMM D YYYY H:mm")}</time>
         </div>
     </nav>
   )
