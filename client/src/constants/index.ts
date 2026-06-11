@@ -14,7 +14,7 @@ const navLinks = [
     name: "Resume",
     type: "resume",
   },
-];
+] as const;
 
 const navIcons = [
   {

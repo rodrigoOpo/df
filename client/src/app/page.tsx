@@ -7,6 +7,7 @@ gsap.registerPlugin(Draggable)
 
 const Terminal = Windows.Terminal;
 const Safari = Windows.Safari;
+const Resume = Windows.Resume;
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
 
       <Terminal/>
       <Safari/>
+      <Resume/>
     </>
   );
 }

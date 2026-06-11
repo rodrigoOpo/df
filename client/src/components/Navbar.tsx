@@ -1,9 +1,10 @@
 "use client"
 
-import { navLinks, navIcons } from '@/constants'
+import { navLinks } from '@/constants'
 import dayjs from 'dayjs'
 import 'dayjs/locale/es';
 import { useState, useEffect } from 'react';
+import useWindowStore from '@/store/Window';
 
 
 dayjs.locale('es');
@@ -13,6 +14,7 @@ type Props = {}
 const Navbar = (props: Props) => {
 
   const [time, setTime] = useState(dayjs());
+  const { openWindow } = useWindowStore()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,8 +31,8 @@ const Navbar = (props: Props) => {
             <p className='font-bold'>Archivador online UwU</p>
 
             <ul>
-              {navLinks.map(({id, name})=>(
-                <li key={id}>
+              {navLinks.map(({id, name, type})=>(
+                <li key={id} onClick={()=> openWindow(type)}>
                   <p>{name}</p>
                 </li>
               ))}
